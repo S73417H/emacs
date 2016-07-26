@@ -2,7 +2,8 @@
 ;;; Commentary:
 ;;; Code:
 
-(require 'sr-speedbar)
+(if (not (package-installed-p 'sr-speedbar))
+    (package-install 'sr-speedbar))
 
 (add-hook 'emacs-startup-hook
           (lambda ()
