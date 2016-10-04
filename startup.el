@@ -2,16 +2,21 @@
 ;;; Commentary:
 ;;; Code:
 
-(if (not (package-installed-p 'sr-speedbar))
-    (package-install 'sr-speedbar))
+(defvar package-list '(sr-speedbar
+                       monokai-theme
+                       irony
+                       company
+                       flycheck
+                       company-irony
+                       flycheck-irony))
 
-(if (not (package-installed-p 'monokai-theme))
-    (package-install 'monokai-theme))
+(dolist (p package-list)
+  (unless (package-installed-p p)
+    (package-install p)))
 
-(add-hook 'emacs-startup-hook
-          (lambda ()
-            (sr-speedbar-open)
-            ))
+(package-initialize)
+
+(add-hook 'emacs-startup-hook 'sr-speedbar-open)
 
 (load-theme 'monokai)
 
@@ -42,6 +47,5 @@
 
 (eval-after-load 'flycheck
   '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
-
 
 ;;; startup.el ends here
